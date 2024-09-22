@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View File</title>
+</head>
+<body>
+    <div class="header">
+        <a href="/folders"><h2>File Uploader</h2></a>
+        <a href="/logout">Log Out</a>
+    </div>
+    <div class="loginBody">
+        <div class="login">
+           <div class="userpass">
+             <div>
+                <p><%=file.name%></p>
+             </div>
+             <div>
+                <%if(file.size > 1000){%>
+                    <%=(file.size/1000).toFixed(0)%> KB
+                <%}else if(file.size > 1000000){%>
+                    <%= (file.size/10000000).toFixed(2) %> MB
+                <%}else{%>
+                    <%= file.size %> bytes
+                    <%}%>
+             </div>
+             <div>
+                <p><%=file.createdAt.toDateString()%></p>
+                
+             </div>
+                <div class="twobutts">
+                    <form action="/download/<%=file.id%>" method="post">
+                        <button class="loginButton">Download</button>
+                    </form>
+                    <form action="/file/delete/<%=file.id%>" method="post">
+                        <button class="loginButton">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

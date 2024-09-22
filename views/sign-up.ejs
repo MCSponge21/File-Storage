@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="header">
+            <a href="/folders"><h2>File Uploader</h2></a>
+            <div class="loginsignup">
+                <a href="/login">Log In</a>
+                <a href="/sign-up">Sign Up</a>
+            </div>
+    </div>
+    <div class="loginBody">
+        <form action="/sign-up" method="post" class="login">
+            
+            <div class="userpass">
+                Sign up
+                
+                <div class="label">
+                    <label for="username" class="n">Username</label>
+                    <input type="text" name="username">
+                </div>
+                <div class="label">
+                    <label for="password" class="n">Password</label>
+                    <input type="password" name="password">
+                </div>
+                <div class="label">
+                    <label for="confirmpassword" class="n"> Confirm password</label>
+                    <input type="password" name="confirmpassword">
+                </div>
+                <% if(errors[0] != null){%>
+                    <div class="errors">
+                        <%for(var i = 0; i < errors.length; i++){%>
+                            <div>
+                                <%=errors[i].msg%>
+                            </div>
+                        <%}%>
+                    </div>
+                <%}%>
+            
+            <button type="submit" class="loginButton">Sign Up</button>
+            <p class="p">Already have an account? <a href="/login" class="a">Log in</a></p>
+        </div>
+        </form>
+    </div>
+</body>
+</html>

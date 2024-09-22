@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body class="folders">
+    <% if(user){ %>
+        <div class="header">
+            <a href="/folders"><h2>File Uploader</h2></a>
+            <a href="/logout">Log Out</a>
+        </div>
+        <div class="not-header">
+            <div class="sidebar">
+                <div class="sidebarb">
+                    <form action="/folder/create" method="get">
+                        <button type="submit" class="sideb"><img src="/public/assets/folderIcon.png" height="15px" alt="">New Folder</button>
+                    </form>
+                    <form action="/upload">
+                        <button type="submit" class="sideb"><img src="/public/assets/fileIcon.png" height="15px" alt="">Upload File</button>
+                    </form>
+                </div>
+            </div>
+            <div class="main">
+                <div class="fileName">
+                    <p class="directory">Main Directory</p>
+                </div>
+                <div class="folderarea">
+                    <% if(!user.Entity[0]){%>
+                        <div class="createnew">
+                            <p>Add a new folder to get started!</p>
+                        </div>
+                    <%}else{
+                        user.Entity.map((folder) => { %>
+                            <%if(!folder.parentId && folder.type == 'FOLDER'){%>
+                            <a href="http://localhost:3000/folders/<%=folder.id%>"><div class="folder">
+                                <div class="iconname">
+                                    <img height="10px"width="10px" src="/public/assets/folderIcon.png" alt="">
+                                    <%=folder.name%>
+                                </div>
+                                <div class="size">--</div>
+                                <div class="size">
+                                    <%=folder.createdAt.toDateString()%>
+                                </div>
+                            </div></a>
+                            <%}%>
+                        <%})
+                        user.Entity.map((file) => { %>
+                            <%if(!file.parentId && file.type == 'FILE'){%>
+                            <a href="http://localhost:3000/files/<%=file.id%>"><div class="folder">
+                                <div class="iconname">
+                                    <img height="10px" src="/public/assets/fileIcon.png" alt="">
+                                    <%=file.name%>
+                                </div>
+                                <div class="size">
+                                    <%if(file.size > 1000){%>
+                                        <%=(file.size/1000).toFixed(0)%> KB
+                                    <%}else if(file.size > 1000000){%>
+                                        <%= (file.size/10000000).toFixed(2) %> MB
+                                    <%}else{%>
+                                        <%= file.size %> bytes
+                                        <%}%>
+                                </div>
+                                <div class="size">
+                                    <%=file.createdAt.toDateString()%>
+                                </div>
+                                
+                            </div></a>
+                            <%}%>
+                        <%})
+                    }%>
+                </div>
+            </div>
+        </div>
+        
+   <% }else{ %>
+    sup nigga
+    <%}%>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body class="folders">
+    <% if(user){ %>
+        <div class="header">
+            <a href="/folders"><h2>File Uploader</h2></a>
+            <a href="/logout">Log Out</a>
+        </div>
+        <div class="not-header">
+            <div class="sidebar">
+                <div class="sidebarb">
+                    <form action="/create/<%=folder.id%>">
+                        <button type="submit" class="sideb"><img src="/public/assets/folderIcon.png" height="15px" alt="">New Folder</button>
+                    </form>
+                    <form action="/edit/<%=folder.id%>">
+                        <button type="submit" class="sideb"><img src="/public/assets/editicon.png"  height="15px">Edit Folder</button>
+                    </form>
+                    <form action="/folders/delete/<%=folder.id%>" method="post">
+                        <button type="submit" class="sideb"><img src="/public/assets/trashicon.png" alt="" height="15px" width="15px">Delete Folder</button>
+                    </form>
+                    <form action="/upload/<%=folder.id%>">
+                        <button type="submit" class="sideb"><img src="/public/assets/fileIcon.png" height="15px" alt="">Upload File</button>
+                    </form>
+                </div>
+            </div>
+            <div class="main">
+                <div class="fileName">
+                    <%parents.map((parent) =>{%>
+                        <a href="/folders/<%=parent.id%>"><p class="parent"><%=parent.name%></p></a>
+                        <p class="directory">/</p>
+                    <%})%>
+                    <p class="directory"><%=folder.name%></p>
+                </div>
+                <div class="folderarea">
+                    <% if(!folder.childEntities[0]){%>
+                        <div class="createnew">
+                            <p>No folders or items to display.</p>
+                        </div>
+                    <%}else{%>
+                        <%folder.childEntities.map((folder) => { %>
+                            <%if(folder.type == 'FOLDER'){%>
+                                <a href="http://localhost:3000/folders/<%=folder.id%>"><div class="folder">
+                                    <div class="iconname">
+                                        <img height="10px"width="10px" src="/public/assets/folderIcon.png" alt="">
+                                        <%=folder.name%>
+                                    </div>
+                                    <div class="size">--</div>
+                                    <div class="size">
+                                        <%=folder.createdAt.toDateString()%>
+                                    </div>
+                                </div></a>
+                        <%}})%>
+                        <%folder.childEntities.map((file) => { %>
+                            <%if(file.type == 'FILE'){%>
+                                <a href="http://localhost:3000/files/<%=file.id%>"><div class="folder">
+                                    <div class="iconname">
+                                        <img height="10px" src="/public/assets/fileIcon.png" alt="">
+                                        <%=file.name%>
+                                    </div>
+                                    <div class="size">
+                                        <%if(file.size > 1000){%>
+                                            <%=(file.size/1000).toFixed(0)%> KB
+                                        <%}else if(file.size > 1000000){%>
+                                            <%= (file.size/10000000).toFixed(2) %> MB
+                                        <%}else{%>
+                                            <%= file.size %> bytes
+                                            <%}%>
+                                    </div>
+                                    <div class="size">
+                                        <%=file.createdAt.toDateString()%>
+                                    </div>
+                                </div></a>
+                        <%}})%>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        
+   <% }else{ %>
+    nice try login dude
+    <%}%>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+</head>
+<body>
+    <div class="header">
+            <a href="/folders"><h2>File Uploader</h2></a>
+            <div class="loginsignup">
+                <a href="/login">Log In</a>
+                <a href="/sign-up">Sign Up</a>
+            </div>
+    </div>
+    <div class="loginBody">
+        <form action="/login" method="post" class="login">
+            
+            <div class="userpass">
+                Log in
+                
+                <div class="label">
+                    <label for="username" class="n">Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="label">
+                    <label for="password" class="n">Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <%if(message){%>
+                    <div class="errors">
+                        <%=message%>
+                    </div>
+                <%}%>
+            
+            <button type="submit" class="loginButton">Log In</button>
+            <p class="p">Don't have an account? <a href="/sign-up" class="a">Sign up</a></p>
+        </div>
+        </form>
+    </div>
+</body>
+</html>
