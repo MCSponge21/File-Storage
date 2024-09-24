@@ -15,5 +15,5 @@
     "passport-local": "^1.0.0",
     "prisma": "^5.19.1"
   },
-  "start": "node app.js"
+  "scripts": {"start": "node app.js"}
 }
