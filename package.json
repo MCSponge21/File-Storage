@@ -16,7 +16,6 @@
     "prisma": "^5.19.1"
   },
   "scripts": {
-    "start": "node app.js",
-    "migrate": "prisma migrate dev"
+    "start": "node app.js && prima migrate dev"
   }
 }
