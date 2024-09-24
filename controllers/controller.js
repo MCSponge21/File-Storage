@@ -160,41 +160,30 @@ async function getUpload(req, res, next){
 
 async function postUpload(req, res, next){
         const id = req.params.id;
-        const folder = await findEntityById(parseInt(id));
+        const bufferStream = new Stream.Readable()
+        const file = req.file;
+        const { originalname, size, buffer, path, filename } = file;
+        bufferStream.push(buffer);
+        bufferStream.push(null); //end of stream
 
-        if(folder.userId == req.user.id){
-            const bufferStream = new Stream.Readable()
-            const file = req.file;
-            const { originalname, size, buffer, path, filename } = file;
-            bufferStream.push(buffer);
-            bufferStream.push(null); //end of stream
+        const { data, error } = await supabase.storage.from(process.env.BUCKET_NAME)
+        .upload(`public/${req.user.id}/${originalname}`, bufferStream, {
+            duplex: 'half'
+        })
 
-            const { data, error } = await supabase
-            .storage
-            .from(process.env.BUCKET_NAME)
-            .createSignedUploadUrl(`public/${req.user.id}/${originalname}`);
-
-            await supabase.storage.from(process.env.BUCKET_NAME)
-            .uploadToSignedUrl(`public/${req.user.id}/${originalname}`, data.token, bufferStream, {
-                duplex: 'half'
-            })
-
-            if (error) {
-                console.log(error)
-                return null;
-            } else {
-            console.log(data);
-            await createFile(originalname, req.user.id, size, filename, path, parseInt(req.params.id));
-            console.log(req.file);
-            if(id == null){
-                res.redirect('/folders');
-            }else{
-                const folder = await findEntityById(parseInt(id));
-                res.redirect(`/folders/${folder.id}`);
-            }
-        }
+        if (error) {
+            console.log(error)
+            return null;
+        } else {
+        console.log(data);
+        await createFile(originalname, req.user.id, size, filename, path, parseInt(req.params.id));
+        console.log(req.file);
+        if(id == null){
+            res.redirect('/folders');
         }else{
-            res.send("Not your folder");
+            const folder = await findEntityById(parseInt(id));
+            res.redirect(`/folders/${folder.id}`);
+        }
         }
 }
 
