@@ -1,6 +1,5 @@
 const express = require('express');
 const Router = express.Router();
-const passport = require('passport')
 const multer  = require('multer')
 const upload = multer({ storage: multer.memoryStorage() })
 const {getUpload, postDeleteFile, postDownload, getLogin, getFile, postUpload, postEditFolder, getFolders, getFoldersCreate, postFoldersCreate, postLogin, getSignUp, postSignUp, getIndex, getLogout, getFoldersCreateNoId, postFoldersCreateNoId, getEditFolder, postDeleteFolder} = require('../controllers/controller')
