@@ -45,7 +45,7 @@
                     <%}else{%>
                         <%folder.childEntities.map((folder) => { %>
                             <%if(folder.type == 'FOLDER'){%>
-                                <a href="http://localhost:3000/folders/<%=folder.id%>"><div class="folder">
+                                <a href="/folders/<%=folder.id%>"><div class="folder">
                                     <div class="iconname">
                                         <img height="10px"width="10px" src="/public/assets/folderIcon.png" alt="">
                                         <%=folder.name%>
@@ -58,7 +58,7 @@
                         <%}})%>
                         <%folder.childEntities.map((file) => { %>
                             <%if(file.type == 'FILE'){%>
-                                <a href="http://localhost:3000/files/<%=file.id%>"><div class="folder">
+                                <a href="/files/<%=file.id%>"><div class="folder">
                                     <div class="iconname">
                                         <img height="10px" src="/public/assets/fileIcon.png" alt="">
                                         <%=file.name%>
