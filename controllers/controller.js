@@ -172,7 +172,7 @@ async function postUpload(req, res, next){
         })
 
         if (error) {
-            console.log("This is the error"+error)
+            console.log(error)
             return null;
         } else {
         console.log(data);
