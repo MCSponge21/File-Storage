@@ -160,7 +160,13 @@ async function getUpload(req, res, next){
 
 async function postUpload(req, res, next){
         const id = req.params.id;
-        const bufferStream = new Stream.Readable()
+        const folder = await findEntityById(parseInt(id));
+        console.log(folder);
+        console.log(id);
+        console.log(req.user.id);
+
+        if(folder.userId == req.user.id){
+            const bufferStream = new Stream.Readable()
         const file = req.file;
         const { originalname, size, buffer, path, filename } = file;
         bufferStream.push(buffer);
@@ -172,7 +178,7 @@ async function postUpload(req, res, next){
         })
 
         if (error) {
-            console.log(error)
+            res.send(error)
             return null;
         } else {
         console.log(data);
@@ -185,6 +191,10 @@ async function postUpload(req, res, next){
             res.redirect(`/folders/${folder.id}`);
         }
         }
+        }else{
+            res.send("not your file");
+        }
+        
 }
 
 async function getFile(req, res){
