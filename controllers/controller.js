@@ -160,7 +160,7 @@ async function getUpload(req, res, next){
 
 async function postUpload(req, res, next){
         const id = req.params.id;
-        const folder = await findEntityById(id);
+        const folder = await findEntityById(parseInt(id));
 
         if(folder.userId == req.user.id){
             const bufferStream = new Stream.Readable()
