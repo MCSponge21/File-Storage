@@ -4,6 +4,9 @@ const multer  = require('multer')
 const upload = multer({ storage: multer.memoryStorage() })
 const {getUpload, postDeleteFile, postDownload, getLogin, getFile, postUpload, postEditFolder, getFolders, getFoldersCreate, postFoldersCreate, postLogin, getSignUp, postSignUp, getIndex, getLogout, getFoldersCreateNoId, postFoldersCreateNoId, getEditFolder, postDeleteFolder} = require('../controllers/controller')
 
+Router.get("/", (req, res) => {
+  res.redirect("/login");
+})
 Router.get("/folders", getIndex);
 Router.get("/folders/:id", getFolders)
 Router.get("/folder/create", getFoldersCreateNoId)
