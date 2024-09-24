@@ -7,9 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/folder/create" method="post">
-        <input type="text" name="foldername" id="" placeholder="Folder name">
-        <button type="submit">Submit</button>
-    </form>
+    <div class="header">
+        <a href="/folders"><h2>File Uploader</h2></a>
+        <a href="/logout">Log Out</a>
+    </div>
+    <div class="loginBody">
+        <form action="/folder/create" method="post" class="login">
+            <div class="userpass">
+                <label for="foldername">Enter new folder name</label>
+                <input type="text" name="foldername" id="" placeholder="Folder name">
+                <button type="submit" class="loginButton">Enter</button>
+            </div>
+            
+        </form>
+    </div>
 </body>
 </html>
